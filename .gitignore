@@ -1,0 +1,19 @@
+# Ignore data directories
+data/logs/
+data/failed_articles/
+data/parsed_articles/
+data/raw_feeds/
+
+# Ignore Python cache files
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore log files
+*.log
+
+# Ignore outputs
+outputs/
+
+# Ignore any other files you want to exclude
+rss_feeder.log

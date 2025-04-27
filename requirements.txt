@@ -1,0 +1,25 @@
+# Core Dependencies
+feedparser
+kafka-python
+requests
+APScheduler
+fastapi
+uvicorn
+python-dateutil
+psutil
+
+# Development/Testing
+pytest
+pytest-mock
+pytest-asyncio
+requests-mock
+freezegun
+
+# Documentation (optional)
+mkdocs
+mkdocs-material
+
+# Linting/Formatting (optional)
+black
+flake8
+mypy
