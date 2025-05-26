@@ -5,8 +5,13 @@ requests
 APScheduler
 fastapi
 uvicorn
+gunicorn
 python-dateutil
 psutil
+prometheus-client
+httpx
+prometheus-client==0.16.0
+prometheus-fastapi-instrumentator==6.0.0
 
 # Development/Testing
 pytest

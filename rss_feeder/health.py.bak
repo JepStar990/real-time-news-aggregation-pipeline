@@ -1,14 +1,16 @@
+# rss_feeder/health.py
 from fastapi import FastAPI, Depends, HTTPException, Security
 from fastapi.security import APIKeyHeader
 from fastapi.middleware.cors import CORSMiddleware
-from typing import Dict, Any
+from typing import Dict, Any, Optional
+from datetime import datetime, timedelta
 import psutil
+import socket
 import os
 import logging
 from prometheus_client import make_asgi_app, Counter, Gauge, Histogram
 from pydantic import BaseModel
 import httpx
-from datetime import datetime, timedelta
 
 # Security
 API_KEY_NAME = "X-API-KEY"
@@ -62,7 +64,7 @@ async def check_kafka() -> bool:
     except Exception:
         return False
 
-async def check_scheduler(scheduler) -> Dict[str, Any]:
+async def check_scheduler() -> Dict[str, Any]:
     """Get scheduler health metrics"""
     return {
         "active_jobs": len(scheduler.scheduler.get_jobs()),
@@ -70,14 +72,8 @@ async def check_scheduler(scheduler) -> Dict[str, Any]:
         "pending_jobs": len(scheduler.scheduler.get_jobs(pending=True))
     }
 
-# Function to get the scheduler instance
-def get_scheduler():
-    # Import your main application to access the scheduler
-    from rss_feeder.__main__ import Application
-    return Application().scheduler
-
 @app.get("/health", response_model=HealthStatus)
-async def health_check(scheduler: Any = Depends(get_scheduler)) -> Dict:
+async def health_check() -> Dict:
     """Comprehensive health endpoint"""
     with REQUEST_LATENCY.labels("/health").time():
         REQUEST_COUNT.labels("/health", "GET").inc()
@@ -91,16 +87,16 @@ async def health_check(scheduler: Any = Depends(get_scheduler)) -> Dict:
                 },
                 "services": {
                     "kafka": await check_kafka(),
-                    "scheduler": await check_scheduler(scheduler),
+                    "scheduler": await check_scheduler(),
                     "storage": {
                         "raw_feeds": len(os.listdir(config.RAW_FEEDS_DIR)),
                         "parsed_articles": len(os.listdir(config.PARSED_ARTICLES_DIR))
                     }
                 }
             }
-
+            
             status = "healthy" if all(stats["services"].values()) else "degraded"
-
+            
             return HealthStatus(
                 status=status,
                 details=stats,

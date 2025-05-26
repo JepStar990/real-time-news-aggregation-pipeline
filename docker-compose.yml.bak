@@ -31,8 +31,6 @@ services:
       - "9308:9308"
     environment:
       KAFKA_SERVER: kafka:9092
-    command:
-      - '--kafka.server=kafka:9092'
     depends_on:
       - kafka
     networks:
@@ -58,8 +56,6 @@ services:
       - API_KEY=i5ufnoo7m5s99ujooa
       - KAFKA_BROKER_URL=kafka:9092
       - PROMETHEUS_MULTIPROC_DIR=/tmp
-      - prometheus_multiproc_dir=/tmp
-      - UVICORN_ACCESS_LOG=true
     volumes:
       - .:/app
       - /tmp:/tmp

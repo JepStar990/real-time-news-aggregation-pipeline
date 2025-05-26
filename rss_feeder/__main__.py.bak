@@ -15,13 +15,12 @@ from rss_feeder.health import app as health_app  # Import the health app
 # Create FastAPI application instance
 app = FastAPI(title="RSS Feed Aggregator")
 
-# Add Prometheus instrumentation - MOVE THIS TO MODULE LEVEL
+# Add Prometheus instrumentation
 instrumentator = Instrumentator(
     should_group_status_codes=False,
     should_ignore_untemplated=True,
     should_respect_env_var=True
 )
-# This must be called at module level, not inside a class
 instrumentator.instrument(app).expose(app)
 
 class ProcessManager:
@@ -78,6 +77,18 @@ class Application:
                 logging.FileHandler('rss_feeder.log')
             ]
         )
+
+    @app.get("/")
+    def read_root():
+        return {"status": "running", "uptime": time.time() - self.start_time}
+
+    # Mount health app
+    app.mount("/health_api", health_app)  # Ensure proper mounting
+
+    @app.get("/routes")
+    def get_routes(self):
+        """List all available routes"""
+        return [{"path": route.path, "methods": route.methods} for route in app.routes]
 
     def run(self):
         """Main application entry point"""
@@ -185,19 +196,6 @@ class Application:
         shutdown_time = time.time() - shutdown_start
         self.logger.info("Shutdown completed in %.2f seconds", shutdown_time)
         sys.exit(0)
-
-# Add FastAPI routes at module level
-@app.get("/")
-def read_root():
-    return {"status": "running", "message": "RSS Feed Aggregator is running"}
-
-@app.get("/routes")
-def get_routes():
-    """List all available routes"""
-    return [{"path": route.path, "methods": list(route.methods)} for route in app.routes]
-
-# Mount health app
-app.mount("/health_api", health_app)
 
 if __name__ == "__main__":
     # Handle zombie processes

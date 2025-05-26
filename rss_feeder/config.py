@@ -3,9 +3,15 @@
 import os
 from datetime import timedelta
 
+# ========== API Keys ==========
+API_KEY = os.getenv("API_KEY", "i5ufnoo7m5s99ujooa")
+
 # ========== Kafka Config ==========
 KAFKA_BROKER_URL = "localhost:9092"
 KAFKA_TOPIC = "rss_articles"
+KAFKA_BROKER_URL = os.getenv("KAFKA_BROKER_URL", "localhost:9092")
+KAFKA_TOPIC = "rss_articles"
+KAFKA_DEAD_LETTER_TOPIC = os.getenv("KAFKA_DEAD_LETTER_TOPIC", "dead_letter_articles")
 
 # ========== Storage Paths ==========
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
