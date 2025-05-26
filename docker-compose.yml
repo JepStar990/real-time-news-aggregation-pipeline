@@ -24,19 +24,25 @@ services:
       - zookeeper
     networks:
       - monitoring
+    healthcheck:
+      test: ["CMD-SHELL", "kafka-broker-api-versions --bootstrap-server localhost:9092"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
 
   kafka-exporter:
     image: danielqsj/kafka-exporter:latest
     ports:
       - "9308:9308"
-    environment:
-      KAFKA_SERVER: kafka:9092
     command:
       - '--kafka.server=kafka:9092'
     depends_on:
-      - kafka
+      kafka:
+        condition: service_healthy
     networks:
       - monitoring
+    restart: unless-stopped 
 
   kafka-ui:
     image: provectuslabs/kafka-ui:latest
