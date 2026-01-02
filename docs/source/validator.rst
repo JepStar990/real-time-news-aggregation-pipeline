@@ -32,3 +32,13 @@ Persistence of invalid articles has been moved to a storage adapter:
 ``rss_feeder.adapters.storage.file_failure_store``
 
 This adapter is responsible for filesystem interactions and JSON persistence.
+
+Extracted Messaging Logic
+------------------------
+Kafka dead-letter publishing has been moved to a messaging adapter:
+
+``rss_feeder.adapters.messaging.dead_letter_publisher``
+
+This isolates Kafka infrastructure from validation logic.
+
+

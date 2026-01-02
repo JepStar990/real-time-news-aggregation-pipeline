@@ -18,3 +18,4 @@ documentation for details.
    architecture
    validator
    storage_adapters
+   messaging_adapters

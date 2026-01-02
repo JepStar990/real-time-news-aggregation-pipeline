@@ -7,6 +7,7 @@ import logging
 from rss_feeder import config
 from rss_feeder.domain.rules import validate_article
 from rss_feeder.adapters.storage.file_failure_store import save_failed_articles
+from rss_feeder.adapters.messaging.dead_letter_publisher import DeadLetterPublisher
 
 # Setup Logger for invalid articles
 logger = logging.getLogger("invalid_articles_logger")
@@ -22,8 +23,7 @@ os.makedirs(config.FAILED_ARTICLES_FOLDER, exist_ok=True)
 class Validator:
     """Validates RSS feeds and articles."""
 
-    dead_letter_topic = config.KAFKA_DEAD_LETTER_TOPIC
-    kafka_publisher = None  # Lazy init to avoid circular import and NoBrokersAvailable error
+    dead_letter_publisher = DeadLetterPublisher()
     failed_articles_counter = {}
 
     @staticmethod
@@ -56,11 +56,7 @@ class Validator:
                 cls.failed_articles_counter[feed_name] = cls.failed_articles_counter.get(feed_name, 0) + 1
 
                 # Send to dead-letter Kafka topic (lazily initialize publisher)
-                if config.SEND_TO_DEAD_LETTER_TOPIC:
-                    if cls.kafka_publisher is None:
-                        from rss_feeder.kafka_publisher import KafkaPublisher
-                        cls.kafka_publisher = KafkaPublisher()
-                    cls.kafka_publisher.publish(cls.dead_letter_topic, article)
+                cls.dead_letter_publisher.publish(article)
 
         # Save invalid articles to JSON file
         if invalid_articles:
