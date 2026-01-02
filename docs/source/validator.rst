@@ -16,3 +16,11 @@ rss_feeder/validator.py
 Future Location
 ---------------
 rss_feeder/domain/rules.py
+
+Extracted Domain Logic
+---------------------
+The ``validate_article`` rule has been moved to:
+
+``rss_feeder.domain.rules``
+
+This is the first step in decomposing the validator module.

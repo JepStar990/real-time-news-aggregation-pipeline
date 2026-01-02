@@ -5,6 +5,7 @@ import json
 import xml.etree.ElementTree as ET
 import logging
 from rss_feeder import config
+from rss_feeder.domain.rules import validate_article
 
 # Setup Logger for invalid articles
 logger = logging.getLogger("invalid_articles_logger")
@@ -46,7 +47,7 @@ class Validator:
         invalid_articles = []
 
         for article in articles:
-            if cls.validate_article(article):
+            if validate_article(article):
                 valid_articles.append(article)
             else:
                 invalid_articles.append(article)
