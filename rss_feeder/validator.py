@@ -6,6 +6,7 @@ import xml.etree.ElementTree as ET
 import logging
 from rss_feeder import config
 from rss_feeder.domain.rules import validate_article
+from rss_feeder.adapters.storage.file_failure_store import save_failed_articles
 
 # Setup Logger for invalid articles
 logger = logging.getLogger("invalid_articles_logger")
@@ -63,27 +64,9 @@ class Validator:
 
         # Save invalid articles to JSON file
         if invalid_articles:
-            cls.save_failed_articles(invalid_articles, feed_name)
+            save_failed_articles(invalid_articles, feed_name)
 
         return valid_articles
-
-    @staticmethod
-    def save_failed_articles(articles, feed_name):
-        """Appends invalid articles into a failed_articles.json file."""
-        failed_articles_file = os.path.join(config.FAILED_ARTICLES_FOLDER, "failed_articles.json")
-
-        # Load existing data if exists
-        if os.path.exists(failed_articles_file):
-            with open(failed_articles_file, 'r', encoding='utf-8') as f:
-                existing_data = json.load(f)
-        else:
-            existing_data = {}
-
-        existing_data.setdefault(feed_name, [])
-        existing_data[feed_name].extend(articles)
-
-        with open(failed_articles_file, 'w', encoding='utf-8') as f:
-            json.dump(existing_data, f, indent=4)
 
     @classmethod
     def print_failure_summary(cls):
