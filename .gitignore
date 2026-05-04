@@ -15,7 +15,8 @@ __pycache__/
 # Ignore outputs
 outputs/
 
-# Ignore backup and swap files
+# Ignore environment files with secrets
+.env
 *.bak
 *.swp
 *.swo
