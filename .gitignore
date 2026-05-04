@@ -15,5 +15,11 @@ __pycache__/
 # Ignore outputs
 outputs/
 
+# Ignore backup and swap files
+*.bak
+*.swp
+*.swo
+temp.json
+
 # Ignore any other files you want to exclude
 rss_feeder.log

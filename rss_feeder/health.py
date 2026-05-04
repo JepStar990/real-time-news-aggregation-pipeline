@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Depends, HTTPException, Security
 from fastapi.security import APIKeyHeader
 from fastapi.middleware.cors import CORSMiddleware
-from typing import Dict, Any
+from typing import Dict, Any, Optional
 import psutil
 import os
 import logging
@@ -9,6 +9,9 @@ from prometheus_client import make_asgi_app, Counter, Gauge, Histogram
 from pydantic import BaseModel
 import httpx
 from datetime import datetime, timedelta
+
+from rss_feeder import config
+from rss_feeder.feed_manager import FeedManager
 
 # Security
 API_KEY_NAME = "X-API-KEY"
@@ -30,11 +33,9 @@ app = FastAPI(title="RSS Feeder Health API",
               description="Monitoring and management endpoints",
               version="1.0.0")
 
-# Add Prometheus metrics
 metrics_app = make_asgi_app()
 app.mount("/metrics", metrics_app)
 
-# CORS Configuration
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -43,45 +44,59 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+def _get_scheduler():
+    """Get the scheduler instance from the running application."""
+    try:
+        from rss_feeder.__main__ import get_application
+        app_instance = get_application()
+        if app_instance and app_instance.scheduler:
+            return app_instance.scheduler
+    except Exception:
+        pass
+    return None
+
 def verify_api_key(api_key: str = Security(api_key_header)):
-    """Validate API key against environment variable"""
-    if api_key != os.getenv("API_KEY"):
+    """Validate API key against environment variable."""
+    expected_key = os.getenv("API_KEY")
+    if not expected_key or api_key != expected_key:
         raise HTTPException(status_code=403, detail="Invalid API Key")
 
 @app.on_event("startup")
 async def startup_event():
     """Initialize monitoring metrics"""
+    feed_manager = FeedManager()
     FEED_GAUGE.set(len(feed_manager.load_feeds()))
 
 async def check_kafka() -> bool:
     """Verify Kafka connectivity"""
     try:
         async with httpx.AsyncClient() as client:
-            res = await client.get(f"http://{os.getenv('KAFKA_BROKER_URL')}/")
+            res = await client.get(f"http://{os.getenv('KAFKA_BROKER_URL', 'localhost:9092')}/")
             return res.status_code == 200
     except Exception:
         return False
 
 async def check_scheduler(scheduler) -> Dict[str, Any]:
     """Get scheduler health metrics"""
-    return {
-        "active_jobs": len(scheduler.scheduler.get_jobs()),
-        "next_run": str(scheduler.scheduler.next_run_time),
-        "pending_jobs": len(scheduler.scheduler.get_jobs(pending=True))
-    }
-
-# Function to get the scheduler instance
-def get_scheduler():
-    # Import your main application to access the scheduler
-    from rss_feeder.__main__ import Application
-    return Application().scheduler
+    if scheduler is None:
+        return {"active_jobs": 0, "next_run": None, "pending_jobs": 0}
+    try:
+        return {
+            "active_jobs": len(scheduler.scheduler.get_jobs()),
+            "next_run": str(scheduler.scheduler.next_run_time) if scheduler.scheduler.next_run_time else None,
+            "pending_jobs": len(scheduler.scheduler.get_jobs(pending=True))
+        }
+    except Exception:
+        return {"active_jobs": 0, "next_run": None, "pending_jobs": 0}
 
 @app.get("/health", response_model=HealthStatus)
-async def health_check(scheduler: Any = Depends(get_scheduler)) -> Dict:
+async def health_check() -> Dict:
     """Comprehensive health endpoint"""
     with REQUEST_LATENCY.labels("/health").time():
         REQUEST_COUNT.labels("/health", "GET").inc()
         try:
+            scheduler = _get_scheduler()
+
             stats = {
                 "system": {
                     "cpu": psutil.cpu_percent(),
@@ -93,13 +108,13 @@ async def health_check(scheduler: Any = Depends(get_scheduler)) -> Dict:
                     "kafka": await check_kafka(),
                     "scheduler": await check_scheduler(scheduler),
                     "storage": {
-                        "raw_feeds": len(os.listdir(config.RAW_FEEDS_DIR)),
-                        "parsed_articles": len(os.listdir(config.PARSED_ARTICLES_DIR))
+                        "raw_feeds": len(os.listdir(config.RAW_FEEDS_DIR)) if os.path.isdir(config.RAW_FEEDS_DIR) else 0,
+                        "parsed_articles": len(os.listdir(config.PARSED_ARTICLES_DIR)) if os.path.isdir(config.PARSED_ARTICLES_DIR) else 0
                     }
                 }
             }
 
-            status = "healthy" if all(stats["services"].values()) else "degraded"
+            status = "healthy" if stats["services"]["kafka"] else "degraded"
 
             return HealthStatus(
                 status=status,

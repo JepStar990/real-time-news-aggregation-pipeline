@@ -1,30 +1,25 @@
-# Dockerfile
+# Multi-stage build
+FROM python:3.12-slim AS builder
 
-FROM python:3.9-slim
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt --target=/install
 
-# Set working directory
+FROM python:3.12-slim
+
 WORKDIR /app
 
-# Copy requirements and install
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+COPY --from=builder /install /usr/local/lib/python3.12/site-packages
 
-# Ensure gunicorn is installed
-RUN pip install gunicorn
-
-# Copy the application code
 COPY ./rss_feeder /app/rss_feeder
+COPY ./rss_feeder/logging.conf /app/rss_feeder/logging.conf
 
-# Set environment variables
-ENV PYTHONPATH=/app/rss_feeder
+ENV PYTHONPATH=/app
+ENV PYTHONUNBUFFERED=1
 
-# Expose the application port
 EXPOSE 8000
 
-# Ensure the config file is copied
-COPY ./rss_feeder/logging.conf /app/rss_feeder/logging.co
+RUN useradd --create-home --shell /bin/bash appuser
+USER appuser
 
-# Run directly without intermediate shell
-#CMD ["python", "-m", "rss_feeder.__main__"]
-#CMD ["sh", "-c", "python -m rss_feeder.__main__ --log-level debug"]
-CMD ["uvicorn", "rss_feeder.__main__:app", "--host", "0.0.0.0", "--port", "8000", "--log-level", "debug"]
+CMD ["uvicorn", "rss_feeder.__main__:app", "--host", "0.0.0.0", "--port", "8000", "--log-level", "info"]

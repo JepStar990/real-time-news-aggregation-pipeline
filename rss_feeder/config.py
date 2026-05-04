@@ -1,14 +1,11 @@
 # config.py
 
 import os
-from datetime import timedelta
 
 # ========== API Keys ==========
 API_KEY = os.getenv("API_KEY", "i5ufnoo7m5s99ujooa")
 
 # ========== Kafka Config ==========
-KAFKA_BROKER_URL = "localhost:9092"
-KAFKA_TOPIC = "rss_articles"
 KAFKA_BROKER_URL = os.getenv("KAFKA_BROKER_URL", "localhost:9092")
 KAFKA_TOPIC = "rss_articles"
 KAFKA_DEAD_LETTER_TOPIC = os.getenv("KAFKA_DEAD_LETTER_TOPIC", "dead_letter_articles")
@@ -36,16 +33,12 @@ DEFAULT_HEADERS = {
 REQUEST_TIMEOUT = 10  # seconds
 RATE_LIMIT_DELAY = 1  # seconds between requests
 
-# ========== Scheduler Settings ==========
-SCHEDULER_INTERVAL_SECONDS = 300  # poll every 5 minutes
-
 # ========== Miscellaneous ==========
 SAVE_WITH_TIMESTAMP = True  # articles.json will include timestamps
 
 # ========== Validator Settings ==========
 FAILED_ARTICLES_FOLDER = os.getenv("FAILED_ARTICLES_FOLDER", "data/failed_articles")
 INVALID_ARTICLES_LOG = os.getenv("INVALID_ARTICLES_LOG", "data/logs/invalid_articles.log")
-KAFKA_DEAD_LETTER_TOPIC = os.getenv("KAFKA_DEAD_LETTER_TOPIC", "dead_letter_articles")
 SEND_TO_DEAD_LETTER_TOPIC = os.getenv("SEND_TO_DEAD_LETTER_TOPIC", "true").lower() == "true"
 
 # ========== User Agents ==========
@@ -62,11 +55,6 @@ USER_AGENTS = [
     "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
     "Mozilla/5.0 (compatible; Bingbot/2.0; +http://www.bing.com/bingbot.htm)"
 ]
-# Update DEFAULT_HEADERS to use the first user agent
-DEFAULT_HEADERS = {
-    "Accept": "application/rss+xml, application/xml;q=0.9, */*;q=0.8"
-}
-
 
 # ========== Scheduler Settings ==========
 MIN_POLL_INTERVAL = 300  # 5 minutes (absolute minimum)

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rss-aggregator-config
+data:
+  KAFKA_BROKER_URL: "kafka.default.svc.cluster.local:9092"
+  KAFKA_DEAD_LETTER_TOPIC: "dead_letter_articles"
+  SEND_TO_DEAD_LETTER_TOPIC: "true"
+  PROMETHEUS_MULTIPROC_DIR: "/tmp"
+  PROMETHEUS_MULTIPROC_DIR_lower: "/tmp"
+  UVICORN_ACCESS_LOG: "true"
+  FAILED_ARTICLES_FOLDER: "data/failed_articles"
+  INVALID_ARTICLES_LOG: "data/logs/invalid_articles.log"

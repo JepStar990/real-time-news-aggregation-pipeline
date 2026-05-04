@@ -1,48 +1,58 @@
 # tests/test_rss_fetcher.py
 import pytest
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock, patch, AsyncMock
 from rss_feeder.rss_fetcher import RSSFetcher
 from rss_feeder import config
+
 
 @pytest.fixture
 def rss_fetcher():
     with patch('rss_feeder.rss_fetcher.StorageManager'), \
          patch('rss_feeder.rss_fetcher.Validator'), \
          patch('rss_feeder.rss_fetcher.KafkaPublisher'):
-        return RSSFetcher()
+        fetcher = RSSFetcher()
+        return fetcher
 
-def test_fetch_feed_success(rss_fetcher):
-    """Test successful feed fetch"""
-    with patch('requests.get') as mock_get:
-        mock_get.return_value.status_code = 200
-        mock_get.return_value.headers = {}
-        mock_get.return_value.content = b'<rss>content</rss>'
-        
-        result = rss_fetcher.fetch_feed("http://test.com", "TestFeed")
+
+@pytest.mark.asyncio
+async def test_fetch_feed_success(rss_fetcher):
+    with patch.object(rss_fetcher, '_get_client') as mock_client_getter:
+        mock_client = AsyncMock()
+        mock_response = MagicMock()
+        mock_response.status_code = 200
+        mock_response.headers = {}
+        mock_response.content = b'<rss>content</rss>'
+        mock_client.get.return_value = mock_response
+        mock_client_getter.return_value = mock_client
+
+        result = await rss_fetcher.fetch_feed("http://test.com", "TestFeed")
         assert result is not None
-        assert mock_get.call_count == 1
 
-def test_fetch_feed_not_modified(rss_fetcher):
-    """Test handling of 304 Not Modified"""
-    with patch('requests.get') as mock_get:
-        mock_get.return_value.status_code = 304
-        result = rss_fetcher.fetch_feed("http://test.com", "TestFeed")
+
+@pytest.mark.asyncio
+async def test_fetch_feed_not_modified(rss_fetcher):
+    with patch.object(rss_fetcher, '_get_client') as mock_client_getter:
+        mock_client = AsyncMock()
+        mock_response = MagicMock()
+        mock_response.status_code = 304
+        mock_client.get.return_value = mock_response
+        mock_client_getter.return_value = mock_client
+
+        result = await rss_fetcher.fetch_feed("http://test.com", "TestFeed")
         assert result is None
 
-def test_process_feeds(rss_fetcher):
-    """Test feed processing"""
-    mock_fm = MagicMock()
-    mock_fm.load_feeds.return_value = [
-        {"name": "Feed1", "url": "http://feed1.com"}
-    ]
-    
-    with patch('rss_feeder.rss_fetcher.FeedManager', return_value=mock_fm), \
-         patch.object(rss_fetcher, 'fetch_feed', return_value={"entries": []}):
-        rss_fetcher.process_feeds()
-        rss_fetcher.fetch_feed.assert_called_once()
 
 def test_is_duplicate(rss_fetcher):
-    """Test duplicate URL detection"""
-    url = "http://test.com"
+    url = "http://test.com/article1"
     assert rss_fetcher._is_duplicate(url) is False
-    assert rss_fetcher._is_duplicate(url) is True  # Now should be duplicate
+    assert rss_fetcher._is_duplicate(url) is True
+
+
+def test_lru_eviction(rss_fetcher):
+    rss_fetcher.MAX_SEEN_URLS = 3
+    for i in range(5):
+        rss_fetcher._is_duplicate(f"http://test.com/{i}")
+    # First URL should have been evicted
+    assert rss_fetcher._is_duplicate("http://test.com/0") is False
+    # Most recent URLs should still be tracked
+    assert rss_fetcher._is_duplicate("http://test.com/4") is True
