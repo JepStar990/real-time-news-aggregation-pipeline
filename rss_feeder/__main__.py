@@ -122,23 +122,16 @@ class Application:
             sys.exit(1)
 
     def _run_uvicorn(self):
-        """Run Uvicorn server with process tracking"""
+        """Run Uvicorn server."""
         config = uvicorn.Config(
             app=app,
             host="0.0.0.0",
             port=8000,
-            log_level="debug",
-            access_log=True,
+            log_level="info",
+            access_log=False,
             timeout_keep_alive=60
         )
         server = uvicorn.Server(config)
-
-        # Register Uvicorn worker PID
-        if hasattr(server, 'serve'):
-            import multiprocessing
-            if isinstance(server.servers, multiprocessing.Process):
-                self.process_manager.register_pid(server.servers.pid)
-
         server.run()
 
     def _monitor_activity(self):
@@ -162,15 +155,15 @@ class Application:
         self.logger.info("System status: %s", status)
 
     def _check_kafka(self):
-        """Check Kafka connection status"""
+        """Check Kafka connection status."""
         try:
             if not self.scheduler or not hasattr(self.scheduler, 'fetcher'):
                 return "no_scheduler"
-
             producer = self.scheduler.fetcher.kafka_publisher.producer
-            return "connected" if len(producer.cluster.brokers()) > 0 else "disconnected"
-        except Exception as e:
-            return f"error: {str(e)}"
+            producer.partitions_for(config.KAFKA_TOPIC)
+            return "connected"
+        except Exception:
+            return "disconnected"
 
     def _shutdown(self, signum=None, frame=None):
         """Graceful shutdown procedure"""
