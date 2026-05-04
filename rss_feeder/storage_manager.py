@@ -14,11 +14,12 @@ class StorageManager:
     COMPACTION_SIZE_BYTES = 100 * 1024 * 1024  # 100 MB
 
     def __init__(self):
-        os.makedirs(config.RAW_FEEDS_DIR, exist_ok=True)
-        os.makedirs(config.PARSED_ARTICLES_DIR, exist_ok=True)
-        os.makedirs(config.LOGS_DIR, exist_ok=True)
-        os.makedirs(config.ARTICLES_OUTPUT_DIR, exist_ok=True)
-        os.makedirs(config.XMLS_OUTPUT_DIR, exist_ok=True)
+        for d in (config.RAW_FEEDS_DIR, config.PARSED_ARTICLES_DIR, config.LOGS_DIR,
+                  config.ARTICLES_OUTPUT_DIR, config.XMLS_OUTPUT_DIR):
+            try:
+                os.makedirs(d, exist_ok=True)
+            except PermissionError:
+                pass
 
     def save_raw_feed(self, feed_content: str, feed_name: str) -> str:
         """Save the raw XML feed content."""

@@ -39,7 +39,7 @@ services:
       start_period: 60s
 
   kafka-exporter:
-    image: danielqsj/kafka-exporter:v1.7.0
+    image: danielqsj/kafka-exporter:v1.9.0
     ports:
       - "9308:9308"
     command:
@@ -52,9 +52,9 @@ services:
     restart: unless-stopped
 
   kafka-ui:
-    image: provectuslabs/kafka-ui:v1.0.0
+    image: provectuslabs/kafka-ui:latest
     ports:
-      - "8080:8080"
+      - "8081:8080"
     environment:
       - KAFKA_CLUSTERS_0_NAME=local
       - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka:9092

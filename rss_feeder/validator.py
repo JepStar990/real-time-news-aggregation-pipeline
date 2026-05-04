@@ -7,16 +7,22 @@ import logging
 from typing import List, Dict, Any, Optional
 from rss_feeder import config
 
-# Ensure failed_articles folder exists
-os.makedirs(config.FAILED_ARTICLES_FOLDER, exist_ok=True)
-os.makedirs(os.path.dirname(config.INVALID_ARTICLES_LOG), exist_ok=True)
+# Ensure failed_articles folder exists (ignore if no permission — Docker handles this)
+try:
+    os.makedirs(config.FAILED_ARTICLES_FOLDER, exist_ok=True)
+    os.makedirs(os.path.dirname(config.INVALID_ARTICLES_LOG), exist_ok=True)
+except PermissionError:
+    pass
 
 # Setup Logger for invalid articles
 logger = logging.getLogger("invalid_articles_logger")
-handler = logging.FileHandler(config.INVALID_ARTICLES_LOG)
-formatter = logging.Formatter('%(asctime)s - %(message)s')
-handler.setFormatter(formatter)
-logger.addHandler(handler)
+try:
+    handler = logging.FileHandler(config.INVALID_ARTICLES_LOG)
+    formatter = logging.Formatter('%(asctime)s - %(message)s')
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
+except PermissionError:
+    pass
 logger.setLevel(logging.INFO)
 
 

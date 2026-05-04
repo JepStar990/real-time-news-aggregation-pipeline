@@ -2,6 +2,7 @@ from fastapi import FastAPI, Depends, HTTPException, Security
 from fastapi.security import APIKeyHeader
 from fastapi.middleware.cors import CORSMiddleware
 from typing import Dict, Any, Optional
+import asyncio
 import psutil
 import os
 import logging
@@ -68,11 +69,14 @@ async def startup_event():
     FEED_GAUGE.set(len(feed_manager.load_feeds()))
 
 async def check_kafka() -> bool:
-    """Verify Kafka connectivity"""
+    """Verify Kafka connectivity via TCP socket."""
+    import socket
     try:
-        async with httpx.AsyncClient() as client:
-            res = await client.get(f"http://{os.getenv('KAFKA_BROKER_URL', 'localhost:9092')}/")
-            return res.status_code == 200
+        host, port = os.getenv('KAFKA_BROKER_URL', 'localhost:9092').split(':')
+        _, writer = await asyncio.open_connection(host, int(port))
+        writer.close()
+        await writer.wait_closed()
+        return True
     except Exception:
         return False
 
