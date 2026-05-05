@@ -4,7 +4,7 @@ import time
 import logging
 import hashlib
 from typing import Dict, Optional
-from datetime import datetime
+from datetime import datetime, timedelta
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.interval import IntervalTrigger
 from apscheduler.jobstores.base import JobLookupError
@@ -51,11 +51,13 @@ class FeedScheduler:
         feeds = FeedManager().get_active_feeds()
         batch_size = 50
         total_feeds = len(feeds)
+        job_index = 0
 
         for i in range(0, total_feeds, batch_size):
             batch = feeds[i:i + batch_size]
             for feed in batch:
-                self._add_feed_job(feed)
+                self._add_feed_job(feed, job_index)
+                job_index += 1
             time.sleep(0.1)
             self.logger.debug("Registered batch %d-%d of %d",
                             i + 1, min(i + batch_size, total_feeds), total_feeds)
@@ -63,7 +65,7 @@ class FeedScheduler:
         self.scheduler.start()
         self.logger.info("Scheduler started with %d active feed jobs", total_feeds)
 
-    def _add_feed_job(self, feed: Dict) -> None:
+    def _add_feed_job(self, feed: Dict, job_index: int = 0) -> None:
         """Add a feed job with unique ID and error handling."""
         feed_name = feed.get('name')
         feed_url = feed.get('url')
@@ -86,6 +88,9 @@ class FeedScheduler:
             jitter=config.JITTER_SECONDS
         )
 
+        # Stagger initial runs by 1.5s per job to avoid thundering herd
+        first_run = datetime.now() + timedelta(seconds=job_index * 1.5)
+
         try:
             self.scheduler.add_job(
                 self._poll_single_feed,
@@ -93,6 +98,7 @@ class FeedScheduler:
                 trigger=trigger,
                 id=job_id,
                 name=f"Poll {feed_name}",
+                next_run_time=first_run,
                 max_instances=1,
                 misfire_grace_time=60,
                 coalesce=True,

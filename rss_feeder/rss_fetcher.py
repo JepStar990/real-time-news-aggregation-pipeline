@@ -31,7 +31,6 @@ class RSSFetcher:
         self._seen_urls: OrderedDict[str, None] = OrderedDict()
         self.feed_state: Dict[str, Dict] = {}
         self.logger = logging.getLogger('rss_fetcher')
-        self._client: Optional[httpx.AsyncClient] = None
         self.last_activity = time.time()
         self.activity_log = {
             'successful_fetches': 0,
@@ -40,24 +39,21 @@ class RSSFetcher:
             'last_failure': None
         }
 
-    async def _get_client(self) -> httpx.AsyncClient:
-        """Lazily initialize the async HTTP client with connection pooling."""
-        if self._client is None:
-            limits = httpx.Limits(
-                max_keepalive_connections=50,
-                max_connections=100,
-                keepalive_expiry=30.0
-            )
-            self._client = httpx.AsyncClient(
-                limits=limits,
-                timeout=httpx.Timeout(config.REQUEST_TIMEOUT),
-                follow_redirects=True
-            )
-        return self._client
+    def _make_client(self) -> httpx.AsyncClient:
+        """Create a fresh httpx client scoped to the current event loop."""
+        limits = httpx.Limits(
+            max_keepalive_connections=50,
+            max_connections=100,
+            keepalive_expiry=30.0
+        )
+        return httpx.AsyncClient(
+            limits=limits,
+            timeout=httpx.Timeout(config.REQUEST_TIMEOUT),
+            follow_redirects=True
+        )
 
     async def fetch_feed(self, feed_url: str, feed_name: str) -> Optional[Dict]:
         """Fetch feed with async connection pooling and activity tracking."""
-        client = await self._get_client()
         headers = {
             **config.DEFAULT_HEADERS,
             'User-Agent': self._get_user_agent(),
@@ -66,25 +62,26 @@ class RSSFetcher:
         }
 
         try:
-            await asyncio.sleep(config.RATE_LIMIT_DELAY)
-            response = await client.get(feed_url, headers=headers)
+            async with self._make_client() as client:
+                await asyncio.sleep(config.RATE_LIMIT_DELAY)
+                response = await client.get(feed_url, headers=headers)
 
-            self.last_activity = time.time()
+                self.last_activity = time.time()
 
-            if response.status_code == 304:
-                return None
+                if response.status_code == 304:
+                    return None
 
-            if response.status_code != 200:
-                self._log_activity(success=False, feed_name=feed_name)
-                return None
+                if response.status_code != 200:
+                    self._log_activity(success=False, feed_name=feed_name)
+                    return None
 
-            self.feed_state[feed_url] = {
-                'etag': response.headers.get('ETag', ''),
-                'last_modified': response.headers.get('Last-Modified', '')
-            }
-            self._log_activity(success=True, feed_name=feed_name)
+                self.feed_state[feed_url] = {
+                    'etag': response.headers.get('ETag', ''),
+                    'last_modified': response.headers.get('Last-Modified', '')
+                }
+                self._log_activity(success=True, feed_name=feed_name)
 
-            return feedparser.parse(response.content)
+                return feedparser.parse(response.content)
 
         except Exception as e:
             self._log_activity(success=False, feed_name=feed_name, error=str(e))
@@ -184,6 +181,4 @@ class RSSFetcher:
 
     async def close(self) -> None:
         """Cleanup resources."""
-        if self._client is not None:
-            await self._client.aclose()
         self.kafka_publisher.close()

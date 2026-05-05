@@ -16,28 +16,28 @@ def rss_fetcher():
 
 @pytest.mark.asyncio
 async def test_fetch_feed_success(rss_fetcher):
-    with patch.object(rss_fetcher, '_get_client') as mock_client_getter:
-        mock_client = AsyncMock()
-        mock_response = MagicMock()
-        mock_response.status_code = 200
-        mock_response.headers = {}
-        mock_response.content = b'<rss>content</rss>'
-        mock_client.get.return_value = mock_response
-        mock_client_getter.return_value = mock_client
-
+    mock_client = AsyncMock()
+    mock_response = MagicMock()
+    mock_response.status_code = 200
+    mock_response.headers = {}
+    mock_response.content = b'<rss>content</rss>'
+    mock_client.get.return_value = mock_response
+    mock_client.__aenter__.return_value = mock_client
+    mock_client.__aexit__.return_value = None
+    with patch.object(rss_fetcher, '_make_client', return_value=mock_client):
         result = await rss_fetcher.fetch_feed("http://test.com", "TestFeed")
         assert result is not None
 
 
 @pytest.mark.asyncio
 async def test_fetch_feed_not_modified(rss_fetcher):
-    with patch.object(rss_fetcher, '_get_client') as mock_client_getter:
-        mock_client = AsyncMock()
-        mock_response = MagicMock()
-        mock_response.status_code = 304
-        mock_client.get.return_value = mock_response
-        mock_client_getter.return_value = mock_client
-
+    mock_client = AsyncMock()
+    mock_response = MagicMock()
+    mock_response.status_code = 304
+    mock_client.get.return_value = mock_response
+    mock_client.__aenter__.return_value = mock_client
+    mock_client.__aexit__.return_value = None
+    with patch.object(rss_fetcher, '_make_client', return_value=mock_client):
         result = await rss_fetcher.fetch_feed("http://test.com", "TestFeed")
         assert result is None
 

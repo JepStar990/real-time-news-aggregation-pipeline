@@ -48,7 +48,7 @@ app.add_middleware(
 def _get_scheduler():
     """Get the scheduler instance from the running application."""
     try:
-        from rss_feeder.__main__ import get_application
+        from rss_feeder.app_state import get_application
         app_instance = get_application()
         if app_instance and app_instance.scheduler:
             return app_instance.scheduler
@@ -85,10 +85,14 @@ async def check_scheduler(scheduler) -> Dict[str, Any]:
     if scheduler is None:
         return {"active_jobs": 0, "next_run": None, "pending_jobs": 0}
     try:
+        jobs = scheduler.scheduler.get_jobs()
+        next_run = None
+        if jobs:
+            next_run = str(min(job.next_run_time for job in jobs if job.next_run_time))
         return {
-            "active_jobs": len(scheduler.scheduler.get_jobs()),
-            "next_run": str(scheduler.scheduler.next_run_time) if scheduler.scheduler.next_run_time else None,
-            "pending_jobs": len(scheduler.scheduler.get_jobs(pending=True))
+            "active_jobs": len(jobs),
+            "next_run": next_run,
+            "pending_jobs": len([j for j in jobs if getattr(j, 'pending', False)])
         }
     except Exception:
         return {"active_jobs": 0, "next_run": None, "pending_jobs": 0}

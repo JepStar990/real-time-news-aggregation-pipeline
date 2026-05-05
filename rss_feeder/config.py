@@ -21,6 +21,7 @@ ARTICLES_FILE = os.path.join(OUTPUTS_DIR, "articles", "articles.json")
 ARTICLES_OUTPUT_DIR = os.path.join(OUTPUTS_DIR, "articles")
 XMLS_OUTPUT_DIR = os.path.join(OUTPUTS_DIR, "xmls")
 ARTICLES_JSON_FILE = os.path.join(ARTICLES_OUTPUT_DIR, "articles.json")
+FEEDS_FILE = os.path.join(DATA_DIR, "feeds.json")
 DEFAULT_ENCODING = 'utf-8'
 
 # ========== Fetcher/Request Settings ==========

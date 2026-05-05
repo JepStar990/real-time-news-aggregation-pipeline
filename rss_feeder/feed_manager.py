@@ -10,10 +10,13 @@ class FeedManager:
     """Manage RSS feed configurations with validation and deduplication"""
 
     def __init__(self, feeds_file: str = None):
-        self.feeds_file = feeds_file or os.path.join(
-            os.path.dirname(os.path.abspath(__file__)),
-            'feeds.json'
+        self._package_feeds = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)), 'feeds.json'
         )
+        self.feeds_file = feeds_file or config.FEEDS_FILE
+        # Fall back to package feeds.json if data dir copy doesn't exist
+        if not os.path.exists(self.feeds_file) and os.path.exists(self._package_feeds):
+            self.feeds_file = self._package_feeds
         self.logger = logging.getLogger('feed_manager')
         self.last_modified = 0
         self.cached_feeds = None

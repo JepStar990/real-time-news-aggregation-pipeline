@@ -4,30 +4,29 @@
     "url": "http://feeds.reuters.com/reuters/topNews",
     "interval": 300,
     "priority": "high",
-    "last_error": "2025-05-13T09:26:30.196950",
-    "error_count": 5,
-    "last_updated": "2025-05-13T09:26:30.208345"
+    "error_count": 0,
+    "last_updated": "2025-05-13T09:26:30.208345",
+    "active": false
   },
   {
     "name": "TechCrunch",
     "url": "http://feeds.feedburner.com/TechCrunch/",
-    "interval": 600,
+    "interval": 120,
     "priority": "high",
-    "last_error": "2025-05-13T09:31:34.953100",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-05-13T09:31:34.964967"
   },
   {
     "name": "US General - ABC News",
     "url": "http://feeds.abcnews.com/abcnews/usheadlines",
-    "interval": 900,
-    "priority": "medium"
+    "interval": 120,
+    "priority": "high"
   },
   {
     "name": "US General - CNN Top Stories (alt)",
     "url": "http://rss.cnn.com/rss/cnn_topstories.rss",
-    "interval": 900,
-    "priority": "medium"
+    "interval": 120,
+    "priority": "high"
   },
   {
     "name": "US General - CBS News",
@@ -46,8 +45,7 @@
     "url": "http://online.wsj.com/xml/rss/3_7085.xml",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-05-13T09:36:21.999215",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-05-13T09:36:22.044734"
   },
   {
@@ -79,15 +77,16 @@
     "url": "http://feeds.reuters.com/Reuters/worldNews",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:28.055622",
-    "error_count": 1,
-    "last_updated": "2025-04-27T20:54:28.065327"
+    "error_count": 0,
+    "last_updated": "2025-04-27T20:54:28.065327",
+    "active": false
   },
   {
     "name": "US General - Reuters Domestic",
     "url": "http://feeds.reuters.com/Reuters/domesticNews",
     "interval": 900,
-    "priority": "medium"
+    "priority": "medium",
+    "active": false
   },
   {
     "name": "US General - AP US Heads",
@@ -148,8 +147,7 @@
     "url": "http://www.theguardian.com/world/usa/rss",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-05-10T14:48:49.076806",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-05-10T14:48:49.120622"
   },
   {
@@ -157,8 +155,7 @@
     "url": "http://www.politico.com/rss/politicopicks.xml",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:15.663408",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:15.672329"
   },
   {
@@ -172,8 +169,7 @@
     "url": "http://feeds.feedburner.com/NationPBSNewsHour",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-05-10T14:48:51.732216",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-05-10T14:48:51.909226"
   },
   {
@@ -217,8 +213,7 @@
     "url": "http://www.latimes.com/nation/rss2.0.xml",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-05-13T09:36:22.261670",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-05-13T09:36:22.297355"
   },
   {
@@ -256,8 +251,7 @@
     "url": "http://time.com/newsfeed/feed/",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:33.753843",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:33.794501"
   },
   {
@@ -289,8 +283,7 @@
     "url": "http://www.huffingtonpost.com/feeds/verticals/politics/index.xml",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:30.433541",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:30.443746"
   },
   {
@@ -310,8 +303,7 @@
     "url": "http://feeds.nbcnews.com/feeds/nbcpolitics",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-05-10T14:48:52.285510",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-05-10T14:48:52.524627"
   },
   {
@@ -348,15 +340,15 @@
     "name": "US Politics - Reuters Politics",
     "url": "http://feeds.reuters.com/Reuters/PoliticsNews",
     "interval": 900,
-    "priority": "medium"
+    "priority": "medium",
+    "active": false
   },
   {
     "name": "US Politics - WSJ Wash Wire",
     "url": "http://blogs.wsj.com/washwire/feed/?mod=WSJ_Politics%2520and%2520Policy",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:28.198888",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:28.207032"
   },
   {
@@ -424,8 +416,7 @@
     "url": "http://www.nationaljournal.com/congress?rss=1",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:23.061145",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:23.224144"
   },
   {
@@ -451,8 +442,7 @@
     "url": "http://www.thenation.com/blogs/rss/politics",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:27.953565",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:27.965155"
   },
   {
@@ -466,8 +456,7 @@
     "url": "http://www.washingtontimes.com/rss/headlines/news/politics/",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-05-13T09:36:22.863843",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-05-13T09:36:22.941557"
   },
   {
@@ -481,8 +470,7 @@
     "url": "http://feeds.feedburner.com/BreitbartFeed",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-05-13T09:36:21.366801",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-05-13T09:36:21.404296"
   },
   {
@@ -508,8 +496,7 @@
     "url": "http://www.weeklystandard.com/rss/site.xml",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:42.678218",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:42.719179"
   },
   {
@@ -541,8 +528,7 @@
     "url": "http://feeds.feedburner.com/motherjones/Politics",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:16.857096",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:16.886909"
   },
   {
@@ -592,8 +578,7 @@
     "url": "http://feeds.harvardbusiness.org/harvardbusiness?format=xml",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-05-13T09:36:20.756530",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-05-13T09:36:20.779297"
   },
   {
@@ -684,7 +669,8 @@
     "name": "US Health - Reuters Health News",
     "url": "http://feeds.reuters.com/reuters/healthNews",
     "interval": 900,
-    "priority": "medium"
+    "priority": "medium",
+    "active": false
   },
   {
     "name": "US Health - Chicago Tribune Health",
@@ -709,8 +695,7 @@
     "url": "http://www.nydailynews.com/lifestyle/health/index_rss.xml",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:40.546078",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:40.588500"
   },
   {
@@ -742,8 +727,7 @@
     "url": "http://hosted2.ap.org/atom/APDEFAULT/bbd825583c8542898e6fa7d440b9febc",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:37.603261",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:37.628967"
   },
   {
@@ -787,8 +771,7 @@
     "url": "http://www.mayoclinic.org/rss/all-health-information-topics",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:18.365695",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:18.378712"
   },
   {
@@ -832,8 +815,7 @@
     "url": "http://www.self.com/feed/fitness-news/",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-05-10T14:48:49.572424",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-05-10T14:48:49.613889"
   },
   {
@@ -847,8 +829,7 @@
     "url": "http://www.cpsc.gov/en/Newsroom/CPSC-RSS-Feed/Recalls-RSS/",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:25.717694",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:25.775935"
   },
   {
@@ -886,8 +867,7 @@
     "url": "http://www.npr.org/rss/rss.php?id=1128",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:25.213627",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:25.306515"
   },
   {
@@ -895,8 +875,7 @@
     "url": "http://www.huffingtonpost.com/feeds/verticals/science/index.xml",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:29.435717",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:29.494883"
   },
   {
@@ -946,8 +925,7 @@
     "url": "http://feeds.sciencedaily.com/sciencedaily",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-05-10T14:48:51.558273",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-05-10T14:48:51.667990"
   },
   {
@@ -973,8 +951,7 @@
     "url": "http://www.sciencemag.org/rss/current.xml",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:29.524080",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:29.574824"
   },
   {
@@ -988,8 +965,7 @@
     "url": "http://feeds.bbci.co.uk/news/science_and_environment/rss.xml",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:26.623400",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:26.674712"
   },
   {
@@ -1021,8 +997,7 @@
     "url": "http://www.livescience.com/home/feed/site.xml",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:44.137905",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:44.204410"
   },
   {
@@ -1066,8 +1041,7 @@
     "url": "http://feeds.gawker.com/io9/full#_ga=1.239815749.772722176.1436906624",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-05-10T14:48:50.296227",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-05-10T14:48:50.532323"
   },
   {
@@ -1152,7 +1126,8 @@
     "name": "US Science - Reuters Science News",
     "url": "http://feeds.reuters.com/reuters/scienceNews",
     "interval": 900,
-    "priority": "medium"
+    "priority": "medium",
+    "active": false
   },
   {
     "name": "US Science - IEEE Spectrum Full Text",
@@ -1165,8 +1140,7 @@
     "url": "http://www.theverge.com/science/rss/index.xml",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:29.227773",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:29.238633"
   },
   {
@@ -1258,8 +1232,7 @@
     "url": "https://sports.yahoo.com/top/rss.xml",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:23.542455",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:23.581385"
   },
   {
@@ -1393,8 +1366,7 @@
     "url": "http://recode.net/category/security/feed/",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:37.545144",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:37.552946"
   },
   {
@@ -1497,7 +1469,8 @@
     "name": "US Tech - Reuters Technology News",
     "url": "http://feeds.reuters.com/reuters/technologyNews?format=xml",
     "interval": 900,
-    "priority": "medium"
+    "priority": "medium",
+    "active": false
   },
   {
     "name": "US Tech - Computer Weekly All Content",
@@ -1510,8 +1483,7 @@
     "url": "http://techrepublic.com.feedsportal.com/c/35463/f/670841/index.rss",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-05-13T09:36:23.538105",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-05-13T09:36:23.578852"
   },
   {
@@ -1579,8 +1551,7 @@
     "url": "http://feeds.feedburner.com/geekologie/iShm",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-05-13T09:36:23.649324",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-05-13T09:36:23.825093"
   },
   {
@@ -1630,8 +1601,7 @@
     "url": "http://www.informationweek.com/rss_simple.asp",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:16.653707",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:16.668818"
   },
   {
@@ -1657,8 +1627,7 @@
     "url": "http://hosted2.ap.org/atom/APDEFAULT/495d344a0d10421e9baa8ee77029cfbd",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:27.554812",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:27.562799"
   },
   {
@@ -1732,8 +1701,7 @@
     "url": "http://rss.ew.com/web/ew/rss/todayslatest/index.xml",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:35.145819",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:35.158107"
   },
   {
@@ -1741,8 +1709,7 @@
     "url": "http://grantland.com/hollywood-prospectus/feed/",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:34.146653",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:34.162719"
   },
   {
@@ -1750,8 +1717,7 @@
     "url": "http://www.latimes.com/entertainment/rss2.0.xml",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:34.478264",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:34.546597"
   },
   {
@@ -1771,8 +1737,7 @@
     "url": "http://www.buzzfeed.com/tvandmovies.xml",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:39.660025",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:39.676604"
   },
   {
@@ -1816,8 +1781,7 @@
     "url": "http://feeds.feedburner.com/nydnrss/entertainment",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:45.067268",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:45.124826"
   },
   {
@@ -1885,8 +1849,7 @@
     "url": "http://www.esquire.com/blogs/culture/culture-rss",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:31.587707",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:31.622153"
   },
   {
@@ -1917,7 +1880,8 @@
     "name": "US Entertainment - Reuters Entertainment",
     "url": "http://feeds.reuters.com/reuters/entertainment",
     "interval": 900,
-    "priority": "medium"
+    "priority": "medium",
+    "active": false
   },
   {
     "name": "US Gaming - IGN All",
@@ -1942,8 +1906,7 @@
     "url": "http://feeds.feedburner.com/VGChartz",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:34.350042",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:34.372786"
   },
   {
@@ -1975,8 +1938,7 @@
     "url": "http://www.gamesindustry.biz/rss/gamesindustry_news_feed.rss",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:20.842408",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:20.871588"
   },
   {
@@ -1984,8 +1946,7 @@
     "url": "http://www.giantbomb.com/feeds/mashup/",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:26.888314",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:26.973653"
   },
   {
@@ -1999,8 +1960,7 @@
     "url": "http://www.pcworld.com/column/game-on/index.rss",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:38.264931",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:38.293240"
   },
   {
@@ -2062,8 +2022,7 @@
     "url": "http://www.pocketgamer.co.uk/rss.asp",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:41.447741",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:41.465588"
   },
   {
@@ -2155,8 +2114,7 @@
     "url": "http://leaderpost.com/feed/",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:20.301273",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:20.309801"
   },
   {
@@ -2194,8 +2152,7 @@
     "url": "http://globalnews.ca/canada/feed/",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:28.702464",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:28.724168"
   },
   {
@@ -2209,8 +2166,7 @@
     "url": "http://www.theglobeandmail.com/news/national/?service=rss",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:43.994829",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:44.025462"
   },
   {
@@ -2253,7 +2209,8 @@
     "name": "CA General - Reuters World News",
     "url": "http://feeds.reuters.com/Reuters/worldNews",
     "interval": 900,
-    "priority": "medium"
+    "priority": "medium",
+    "active": false
   },
   {
     "name": "CA General - 660 News Spotlight",
@@ -2422,8 +2379,7 @@
     "url": "http://www.calgarysun.com/money/rss.xml",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:23.736405",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:23.820688"
   },
   {
@@ -2449,8 +2405,7 @@
     "url": "http://www.ft.com/rss/home/us",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:22.270869",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:22.350279"
   },
   {
@@ -2548,8 +2503,7 @@
     "url": "http://rss.canada.com/get/?F7523",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:35.070768",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:35.079530"
   },
   {
@@ -2665,8 +2619,7 @@
     "url": "http://www.cbc.ca/cmlink/1.392",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:39.555738",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:39.564581"
   },
   {
@@ -2818,8 +2771,7 @@
     "url": "http://www.thestar.com/feeds.articles.sports.rss",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:45.456618",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:45.507042"
   },
   {
@@ -2863,8 +2815,7 @@
     "url": "http://rss.radio-canada.ca/fils/nouvelles/technologie.xml",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:26.019166",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:26.144327"
   },
   {
@@ -2949,7 +2900,8 @@
     "name": "CA Tech - Reuters Technology News",
     "url": "http://feeds.reuters.com/reuters/technologyNews?format=xml",
     "interval": 900,
-    "priority": "medium"
+    "priority": "medium",
+    "active": false
   },
   {
     "name": "CA Entertainment - Canada Entertainment News",
@@ -3010,8 +2962,7 @@
     "url": "http://www.blogtalkradio.com/canadianmusician/podcast",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:29.957718",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:30.016288"
   },
   {
@@ -3049,8 +3000,7 @@
     "url": "http://www.calgarysun.com/entertainment/rss.xml",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:38.296831",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:38.367269"
   },
   {
@@ -3088,8 +3038,7 @@
     "url": "http://www.torontosun.com/entertainment/rss.xml",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:28.962990",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:28.972542"
   },
   {
@@ -3199,8 +3148,7 @@
     "url": "http://timesofindia.feedsportal.com/c/33039/f/533916/index.rss",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:41.220289",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:41.232378"
   },
   {
@@ -3220,8 +3168,7 @@
     "url": "http://timesofindia.feedsportal.com/c/33039/f/533965/index.rss",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:23.928203",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:24.012526"
   },
   {
@@ -3289,8 +3236,7 @@
     "url": "http://www.asianage.com/rss/38",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:42.077973",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:42.145297"
   },
   {
@@ -3567,7 +3513,8 @@
     "name": "IN Business - Reuters India Business News",
     "url": "http://feeds.reuters.com/reuters/INbusinessNews",
     "interval": 900,
-    "priority": "medium"
+    "priority": "medium",
+    "active": false
   },
   {
     "name": "IN Business - Business Standard Today's Paper",
@@ -3598,8 +3545,7 @@
     "url": "http://feeds.hindustantimes.com/HT-Business?format=xml",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:27.752649",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:27.762817"
   },
   {
@@ -3781,8 +3727,7 @@
     "url": "http://www.dnaindia.com/feeds/scitech.xml",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:39.345307",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:39.362225"
   },
   {
@@ -3909,7 +3854,8 @@
     "name": "IN Sports - Reuters World of Sport",
     "url": "http://feeds.reuters.com/reuters/worldOfSport",
     "interval": 900,
-    "priority": "medium"
+    "priority": "medium",
+    "active": false
   },
   {
     "name": "IN Sports - Hindustan Times Sports",
@@ -3928,8 +3874,7 @@
     "url": "http://www.abplive.in/sports/?widgetName=rssfeed&widgetContentId=101313&getXmlFeed=true",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:41.005069",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:41.016819"
   },
   {
@@ -4051,8 +3996,7 @@
     "url": "http://www.in.com/ - sthash.XTJcCE91.dpuf",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:33.040141",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:33.234535"
   },
   {
@@ -4060,8 +4004,7 @@
     "url": "http://feeds2.feedburner.com/musicmaza/zNyY",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:36.691611",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:36.700693"
   },
   {
@@ -4122,7 +4065,8 @@
     "name": "IN Entertainment - Reuters India Entertainment",
     "url": "http://feeds.reuters.com/reuters/INentertainmentNews",
     "interval": 900,
-    "priority": "medium"
+    "priority": "medium",
+    "active": false
   },
   {
     "name": "IN Entertainment - Hindustan Times Entertainment",
@@ -4273,8 +4217,7 @@
     "url": "http://www.scotsman.com/rss/cmlink/1.65668",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:42.349005",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:42.403645"
   },
   {
@@ -4341,7 +4284,8 @@
     "name": "GB Politics - Reuters UK Domestic News",
     "url": "http://mf.feeds.reuters.com/reuters/UKdomesticNews",
     "interval": 900,
-    "priority": "medium"
+    "priority": "medium",
+    "active": false
   },
   {
     "name": "GB Politics - Economist Blighty Blog",
@@ -4408,8 +4352,7 @@
     "url": "http://www.huffingtonpost.co.uk/news/space-agency/feed/",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:31.982804",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:32.027766"
   },
   {
@@ -4429,8 +4372,7 @@
     "url": "http://online.wsj.com/xml/rss/3_7031.xml",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:29.284242",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:29.399227"
   },
   {
@@ -4455,7 +4397,8 @@
     "name": "GB Business - Reuters UK Video Business",
     "url": "http://mf.feeds.reuters.com/reuters/UKVideoBusiness",
     "interval": 900,
-    "priority": "medium"
+    "priority": "medium",
+    "active": false
   },
   {
     "name": "GB Business - Sky News",
@@ -4816,9 +4759,9 @@
     "url": "http://mf.feeds.reuters.com/reuters/UKSportsNews",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:30.692014",
-    "error_count": 1,
-    "last_updated": "2025-04-27T20:54:30.705958"
+    "error_count": 0,
+    "last_updated": "2025-04-27T20:54:30.705958",
+    "active": false
   },
   {
     "name": "GB Tech - Gizmodo UK",
@@ -5149,8 +5092,7 @@
     "url": "http://feeds.news.com.au/public/rss/2.0/news_sport_3168.xml",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:31.164555",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:31.250007"
   },
   {
@@ -5260,8 +5202,7 @@
     "url": "http://feeds.news.com.au/public/rss/2.0/The%20Mercury%20|%20Entertainment_3306.xml",
     "interval": 900,
     "priority": "medium",
-    "last_error": "2025-04-27T20:54:34.653225",
-    "error_count": 1,
+    "error_count": 0,
     "last_updated": "2025-04-27T20:54:34.705035"
   },
   {
@@ -5288,4 +5229,4 @@
     "interval": 900,
     "priority": "medium"
   }
-]                                                                          
+]

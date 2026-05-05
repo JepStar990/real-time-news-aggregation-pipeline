@@ -9,15 +9,10 @@ from concurrent.futures import ThreadPoolExecutor
 import uvicorn
 from fastapi import FastAPI
 from prometheus_fastapi_instrumentator import Instrumentator
+from rss_feeder import config
 from rss_feeder.scheduler import FeedScheduler
 from rss_feeder.health import app as health_app  # Import the health app
-
-# Shared application reference (set by Application.__init__)
-_current_application = None
-
-def get_application():
-    """Return the running Application instance, or None if not started."""
-    return _current_application
+from rss_feeder.app_state import set_application, get_application  # noqa: F401 - re-exported
 
 # Create FastAPI application instance
 app = FastAPI(title="RSS Feed Aggregator")
@@ -67,8 +62,7 @@ class ProcessManager:
 
 class Application:
     def __init__(self):
-        global _current_application
-        _current_application = self
+        set_application(self)
         self.scheduler = None
         self.executor = None
         self.process_manager = ProcessManager()
